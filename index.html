@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      sizes="32x32"
+      href="./assets/images/Terra icon.png"
+      type="image/png"
+    />
+    <script
+      src="https://kit.fontawesome.com/e8c22a66c1.js"
+      crossorigin="anonymous"
+    ></script>
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>TerraData || Global Insights</title>
+  </head>
+  <body>
+    <div class="body-container">
+      <nav class="navbar">
+        <ul class="nav-list">
+          <li>
+            <img src="./assets/images/TerraDataLogo.png" alt="TerraData Logo" />
+          </li>
+          <!-- <li>Where in the World?</li> -->
+          <li>
+            <button><i class="fa-regular fa-moon"></i>Dark Mode</button>
+          </li>
+        </ul>
+      </nav>
+
+      <section class="search-section">
+        <div class="left">
+          <button type="submit" class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+          <input
+            type="search"
+            name="search-bar"
+            id="search-bar"
+            placeholder="Search for a country..."
+          />
+        </div>
+
+        <div class="right">
+          <select name="region" id="region">
+            <option value="region">Filter by Region</option>
+            <option value="africa">Africa</option>
+            <option value="americas">Americas</option>
+            <option value="asia">Asia</option>
+            <option value="europe">Europe</option>
+            <option value="oceania">Oceania</option>
+          </select>
+        </div>
+      </section>
+
+      <main>
+        <div class="country-card">
+          <img src="" alt="Country Flag" class="country-flag" />
+          <div class="country-info">
+            <h2 class="country-name">Country Name</h2>
+            <p>👨‍👩‍👧‍👦 <strong>Population:</strong> <span>123456789</span></p>
+            <p>🌍 <strong>Region:</strong> <span>Region</span></p>
+            <p>📍 <strong>Capital:</strong> <span>Capital</span></p>
+            <p>💰 <strong>Currency:</strong> <span>Currency</span></p>
+          </div>
+        </div>
+
+        <div class="country-card" href="country.html">
+          <img src="" alt="Country Flag" class="country-flag" />
+          <div class="country-info">
+            <h2 class="country-name">Country Name</h2>
+            <p>👨‍👩‍👧‍👦 <strong>Population:</strong> <span>123456789</span></p>
+            <p>🌍 <strong>Region:</strong> <span>Region</span></p>
+            <p>📍 <strong>Capital:</strong> <span>Capital</span></p>
+            <p>💰 <strong>Currency:</strong> <span>Currency</span></p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
