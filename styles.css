@@ -32,6 +32,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-height: 100vh;
   background: var(--Very-Light-Gray-Light-Mode-Background);
   color: var(--Very-Dark-Blue-Light-Mode-Text);
 }
@@ -81,6 +82,9 @@ img {
   align-items: center;
   padding: 1rem;
   gap: 30px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .left {
@@ -173,6 +177,10 @@ main {
   align-items: center;
   margin: 0 auto;
   gap: 1.5rem;
+  width: 80%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .country-card {
@@ -200,18 +208,18 @@ main {
 }
 
 .country-info h2 {
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin-top: 0;
   margin-bottom: 1rem;
 }
 
 .country-info p {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-top: 0;
   margin-bottom: 0.4rem;
 }
 
-/* Add dark mode class */
+/* Add dark mode class  */
 body.dark-mode,
 main.dark-mode,
 section.search-section.dark-mode {
@@ -230,6 +238,11 @@ section.search-section.dark-mode {
   background-color: var(--Dark-Blue-Dark-Mode-Elements);
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
+
+/* .dark-mode .nav-list li img {
+  filter: invert(1) brightness(1.5);
+  background-color: var(--Dark-Blue-Dark-Mode-Elements);
+} */
 
 /* Search and filter section dark mode */
 .dark-mode #search-bar,
@@ -260,13 +273,15 @@ section.search-section.dark-mode {
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
-.dark-mode .back-btn {
+/* Find this rule in the dark mode styles section */
+.dark-mode button.back-btn {
   background-color: var(--Dark-Blue-Dark-Mode-Elements);
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
 .dark-mode .fa-arrow-left,
-.dark-mode .fa-moon {
+.dark-mode .fa-moon,
+.dark-mode .fa-lightbulb {
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
@@ -302,7 +317,8 @@ section.search-section.dark-mode {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.fa-arrow-left {
+.fa-arrow-left,
+.fa-lightbulb {
   color: var(--Very-Dark-Blue-Light-Mode-Text);
   margin-right: 0.5rem;
 }
@@ -365,9 +381,52 @@ p.top-level-domain {
 }
 
 /* Media queries */
+@media (min-width: 425px) {
+  main {
+    width: 70%;
+  }
+
+  .right {
+    margin-left: 1.7rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .search-section {
+    flex-direction: row;
+    gap: 4.7rem;
+  }
+
+  .left {
+    gap: 15px;
+    margin-left: -4.4rem;
+  }
+
+  .right {
+    margin-right: -0.8rem;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem auto;
+    width: 84%;
+  }
+
+  .country-card {
+    width: 100%;
+  }
+
+  .border-countries {
+    justify-content: flex-start;
+  }
+}
+
 @media (min-width: 1000px) {
   .left {
     gap: 15px;
+    margin-left: 1rem;
   }
 
   .search-section {
@@ -375,8 +434,7 @@ p.top-level-domain {
     justify-content: space-between;
     gap: 0;
     margin: 0;
-    /* margin-right: 4.7rem; */
-    width: 150%;
+    width: 100%;
   }
 
   #search-bar {
@@ -390,6 +448,10 @@ p.top-level-domain {
 
   #region {
     padding: 0.8rem 1.3rem;
+  }
+
+  .right {
+    margin-right: 4.5rem;
   }
 
   main {
@@ -462,10 +524,19 @@ p.top-level-domain {
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1200px) {
+  .left {
+    margin-left: -3rem;
+  }
+
+  .right {
+    margin-right: 0.4rem;
+  }
+
   .search-section {
-    /* margin-right: 5rem; */
-    width: 93%;
+    margin: 0 auto;
+    padding: 1rem 5rem;
+    width: 100%;
   }
 
   main {
@@ -476,13 +547,19 @@ p.top-level-domain {
 /* Hover states */
 .nav-list li button:hover,
 .back-btn:hover,
-#darkMode2:hover {
+#light-mode-btn:hover {
   animation: slideUp 0.7s ease-in;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.country-card:hover {
+main.country-card:hover {
   animation: slideUp 0.7s ease-in;
+}
+
+.dark-mode .nav-list li button:hover,
+.dark-mode .back-btn:hover,
+.dark-mode button.border-countries-btn:hover {
+  box-shadow: 0 5px 10px rgba(255, 255, 255, 0.4);
 }
 
 /* Animations */
