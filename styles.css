@@ -193,6 +193,7 @@ main {
   border-radius: 5px;
   width: 130%;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  cursor: default;
 }
 
 .country-card img {
@@ -208,7 +209,7 @@ main {
 }
 
 .country-info h2 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-top: 0;
   margin-bottom: 1rem;
 }
