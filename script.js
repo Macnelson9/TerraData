@@ -50,7 +50,7 @@ const getCountryData = function () {
             }</span></p>
         </div>`;
 
-        // main.insertAdjacentHTML('beforeend', html);
+        main.insertAdjacentHTML('beforeend', html);
       });
 
       // Add event listeners after cards are created
@@ -67,37 +67,73 @@ const getCountryData = function () {
   );
 };
 
-const countrySearch = function () {
-  searchBtn.addEventListener('click', function () {
-    const searchCountry = searchBar.value;
+// Function to display a country card
+const displayCountryCard = function (country) {
+  const html = `
+    <div class="country-card ${country.name.common.toLowerCase()}">
+      <img src="${country.flags.png}" alt="Country Flag" class="country-flag" />
+      <div class="country-info">
+        <h2 class="country-name">${country.name.common}</h2>
+        <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${
+          country.population >= 1000000
+            ? `${(country.population / 1000000).toFixed(2)} million`
+            : `${(country.population / 1000).toFixed(2)} thousand`
+        }</span></p>
+        <p><strong>Region 🌍:</strong> <span>${country.region}</span></p>
+        <p><strong>Capital 📍:</strong> <span>${country.capital}</span></p>
+        <p><strong>Currency 💰:</strong> <span>${
+          Object.values(country.currencies)[0].name
+        }</span></p>
+      </div>
+    </div>`;
 
-    getJSON(
-      `https://restcountries.com/v3.1/name/${searchCountry}`,
-      'Country not found'
-    ).then(data => {
-      console.log(data);
-      const html = `<div class="country-card" data-href="country.html">
-          <img src="${
-            data.flags.png
-          }" alt="Country Flag" class="country-flag" />
-          <div class="country-info">
-            <h2 class="country-name">${data.name.common}</h2>
-            <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${
-              data.population >= 1000000
-                ? `${(data.population / 1000000).toFixed(2)} million`
-                : `${(data.population / 1000).toFixed(2)} thousand`
-            }</span></p>
-            <p><strong>Region 🌍:</strong> <span>${data.region}</span></p>
-            <p><strong>Capital 📍:</strong> <span>${data.capital}</span></p>
-            <p><strong>Currency 💰:</strong> <span>${
-              Object.values(data.currencies)[0].name
-            }</span></p>
-        </div>`;
-
-      main.insertAdjacentHTML('beforeend', html);
-    });
-  });
+  main.insertAdjacentHTML('beforeend', html);
 };
 
+// Function to clear all country cards
+const clearCountries = () => {
+  main.innerHTML = '';
+};
+
+// Function to handle the search
+const handleSearch = async () => {
+  try {
+    // Get search term and clean it
+    const searchTerm = searchBar.value.trim().toLowerCase();
+
+    // Don't search if input is empty
+    if (!searchTerm) {
+      return getCountryData(); // Show all countries if search is empty
+    }
+
+    // Clear existing countries
+    clearCountries();
+
+    // Fetch country data
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${searchTerm}`
+    );
+    const data = await response.json();
+
+    // If no results found
+    if (!data || data.status === 404) {
+      main.innerHTML =
+        '<p class="error">No countries found. Try another search.</p>';
+      return;
+    }
+
+    // Display matching countries
+    data.forEach(country => displayCountryCard(country));
+  } catch (error) {
+    main.innerHTML =
+      '<p class="error">Something went wrong. Please try again.</p>';
+  }
+};
+
+// Event listeners
+searchBtn.addEventListener('click', handleSearch);
+searchBar.addEventListener('keyup', e => {
+  if (e.key === 'Enter') handleSearch();
+});
+
 getCountryData();
-countrySearch();
