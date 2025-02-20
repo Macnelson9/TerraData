@@ -13,6 +13,7 @@ const body = document.querySelector('.body');
 const main = document.querySelector('.main');
 const searchSection = document.querySelector('.search-section');
 const detailsContainer = document.querySelector('.details-container');
+const countryCards = document.querySelectorAll('.country-card');
 
 // Get JSON function
 const getJSON = function (url, errorMsg = 'Something went wrong') {
@@ -130,10 +131,24 @@ const handleSearch = async () => {
   }
 };
 
+// Switch themes
+const switchDarkMode = function () {
+  navListEl.classList.add('dark-mode');
+  body.classList.add('dark-mode');
+  main.classList.add('dark-mode');
+  countryCards.classList.add('dark-mode');
+  detailsContainer.classList.add('dark-mode');
+  backBtn.classList.add('dark-mode');
+  searchBar.classList.add('dark-mode');
+  searchBtn.classList.add('dark-mode');
+  searchSection.classList.add('dark-mode');
+};
+
 // Event listeners
 searchBtn.addEventListener('click', handleSearch);
 searchBar.addEventListener('keyup', e => {
   if (e.key === 'Enter') handleSearch();
 });
+darkModeBtn.addEventListener('click', switchDarkMode);
 
 getCountryData();
