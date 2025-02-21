@@ -1,7 +1,7 @@
 'use strict';
 
 // Selected elements
-const darkModeBtn = document.querySelector('.dark-mode-btn');
+const darkModeBtn = document.getElementById('dark-mode-btn');
 const lightModeBtn = document.getElementById('light-mode-btn');
 const searchBtn = document.querySelector('.search-btn');
 const backBtn = document.querySelector('.back-btn');
@@ -12,6 +12,7 @@ const navListEl = document.querySelector('.nav-list');
 const body = document.querySelector('.body');
 const main = document.querySelector('.main');
 const searchSection = document.querySelector('.search-section');
+const bodyContainer = document.querySelector('.body-container');
 const detailsContainer = document.querySelector('.details-container');
 const countryCards = document.querySelectorAll('.country-card');
 
@@ -133,15 +134,49 @@ const handleSearch = async () => {
 
 // Switch themes
 const switchDarkMode = function () {
-  navListEl.classList.add('dark-mode');
-  body.classList.add('dark-mode');
-  main.classList.add('dark-mode');
-  countryCards.classList.add('dark-mode');
-  detailsContainer.classList.add('dark-mode');
-  backBtn.classList.add('dark-mode');
-  searchBar.classList.add('dark-mode');
-  searchBtn.classList.add('dark-mode');
-  searchSection.classList.add('dark-mode');
+  const elements = [
+    navListEl,
+    body,
+    main,
+    countryCards,
+    detailsContainer,
+    backBtn,
+    searchBar,
+    searchBtn,
+    searchSection,
+    bodyContainer,
+  ];
+
+  elements.forEach(el => {
+    el.classList.add('dark-mode');
+  });
+
+  // Hide dark mode button and show light mode button
+  darkModeBtn.style.display = 'none';
+  lightModeBtn.style.display = 'block';
+};
+
+const switchLightMode = function () {
+  const elements = [
+    navListEl,
+    body,
+    main,
+    countryCards,
+    detailsContainer,
+    backBtn,
+    searchBar,
+    searchBtn,
+    searchSection,
+    bodyContainer,
+  ];
+
+  elements.forEach(el => {
+    el.classList.remove('dark-mode');
+  });
+
+  // Hide light mode button and show dark mode button
+  lightModeBtn.style.display = 'none';
+  darkModeBtn.style.display = 'block';
 };
 
 // Event listeners
@@ -149,6 +184,9 @@ searchBtn.addEventListener('click', handleSearch);
 searchBar.addEventListener('keyup', e => {
   if (e.key === 'Enter') handleSearch();
 });
-darkModeBtn.addEventListener('click', switchDarkMode);
 
+darkModeBtn.addEventListener('click', switchDarkMode);
+lightModeBtn.addEventListener('click', switchLightMode);
+
+// switchLightMode();
 getCountryData();

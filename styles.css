@@ -179,7 +179,6 @@ main {
   gap: 1.5rem;
   width: 80%;
   max-width: 1440px;
-  margin: 0 auto;
   padding: 0 1rem;
 }
 
@@ -223,7 +222,8 @@ main {
 /* Add dark mode class  */
 body.dark-mode,
 main.dark-mode,
-section.search-section.dark-mode {
+section.search-section.dark-mode,
+.dark-mode .body-container {
   background: var(--Very-Dark-Blue-Dark-Mode-Background);
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
@@ -411,12 +411,29 @@ p.top-level-domain {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    margin: 2rem auto;
-    width: 84%;
+    margin: 0 auto;
+    padding: 2rem 0;
+    width: 90%;
+    max-width: 1200px;
   }
 
   .country-card {
+    width: auto;
+    height: 100%;
+    min-width: 0;
+  }
+
+  .country-card img {
+    height: 180px;
+    object-fit: cover;
     width: 100%;
+  }
+
+  .country-info {
+    height: calc(100% - 180px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .border-countries {
@@ -469,7 +486,7 @@ p.top-level-domain {
   }
 
   .country-card img {
-    height: 160px;
+    height: 180px;
     object-fit: cover;
   }
 
@@ -537,7 +554,7 @@ p.top-level-domain {
   .search-section {
     margin: 0 auto;
     padding: 1rem 5rem;
-    width: 100%;
+    width: 90%;
   }
 
   main {
