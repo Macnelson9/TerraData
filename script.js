@@ -18,6 +18,34 @@ const countryCards = document.querySelectorAll('.country-card');
 
 // Get JSON function
 const getJSON = function (url, errorMsg = 'Something went wrong') {
+  const loaderHtml = `<div class="loader-container">
+    <div class="wrapper">
+      <div class="loader">
+        <div class="dot"></div>
+      </div>
+      <div class="loader">
+        <div class="dot"></div>
+      </div>
+      <div class="loader">
+        <div class="dot"></div>
+      </div>
+      <div class="loader">
+        <div class="dot"></div>
+      </div>
+      <div class="loader">
+        <div class="dot"></div>
+      </div>
+      <div class="loader">
+        <div class="dot"></div>
+      </div>
+    </div>
+    <div class="text">TerraData</div>
+  </div>`;
+
+  main.innerHTML = loaderHtml;
+  navListEl.style.display = 'none';
+  searchSection.style.display = 'none';
+
   return fetch(url).then(response => {
     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
 
@@ -29,6 +57,9 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
 const getCountryData = function () {
   getJSON(`https://restcountries.com/v3.1/all`, 'Countries not found').then(
     data => {
+      main.innerHTML = '';
+      navListEl.style.display = 'flex';
+      searchSection.style.display = 'flex';
       // console.log(data);
       data.forEach(item => {
         // console.log(item);
@@ -54,17 +85,6 @@ const getCountryData = function () {
 
         main.insertAdjacentHTML('beforeend', html);
       });
-
-      // Add event listeners after cards are created
-      // const countryCards = document.querySelectorAll('.country-card');
-      // countryCards.forEach(card => {
-      //   card.addEventListener('click', function () {
-      //     const href = this.getAttribute('data-href');
-      //     if (href) {
-      //       window.location.href = href;
-      //     }
-      //   });
-      // });
     }
   );
 };
