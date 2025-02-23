@@ -13,8 +13,8 @@ const body = document.querySelector('.body');
 const main = document.querySelector('.main');
 const searchSection = document.querySelector('.search-section');
 const bodyContainer = document.querySelector('.body-container');
-const detailsContainer = document.querySelector('.details-container');
-const countryCards = document.querySelectorAll('.country-card');
+const detailsContent = document.querySelector('.details-content');
+// const countryCards = main.querySelectorAll('.country-card');
 
 // Get JSON function
 const getJSON = function (url, errorMsg = 'Something went wrong') {
@@ -85,6 +85,10 @@ const getCountryData = function () {
 
         main.insertAdjacentHTML('beforeend', html);
       });
+
+      // Log all country cards after they've been created
+      const countryCards = document.querySelectorAll('.country-card');
+      console.log('All country cards:', countryCards);
     }
   );
 };
@@ -151,6 +155,50 @@ const handleSearch = async () => {
       '<p class="error">Something went wrong. Please try again.</p>';
   }
 };
+
+// Display country details in the details page
+const displayDetails = function () {
+  const html = `
+        <img
+          src="${this.flags.png}"
+          alt="Country Flag"
+          class="country-flag"
+        />
+        <div class="country-info2">
+          <h2 class="country-name2">${this.name.common}</h2>
+          <p><strong>Native Name:</strong> <span>Native Name</span></p>
+          <p><strong>Population:</strong> <span>${
+            this.population >= 1000000
+              ? `${(country.population / 1000000).toFixed(2)} million`
+              : `${(country.population / 1000).toFixed(2)} thousand`
+          }</span></p>
+          <p><strong>Region:</strong> <span>${this.region}</span></p>
+          <p><strong>Sub Region:</strong> <span>Sub Region</span></p>
+          <p><strong>Capital:</strong> <span>${this.capital}</span></p>
+          <p class="top-level-domain">
+            <strong>Top Level Domain:</strong> <span>Top Level Domain</span>
+          </p>
+          <p><strong>Currencies:</strong> <span>${
+            Object.values(country.currencies)[0].name
+          }</span></p>
+          <p><strong>Languages:</strong> <span>Languages</span></p>
+
+          <p id="border-countries--p"><strong>Border Countries:</strong></p>
+          <div class="border-countries">
+            <button class="border-countries-btn">Country 1</button>
+            <button class="border-countries-btn">Country 2</button>
+            <button class="border-countries-btn">Country 3</button>
+          </div>
+        </div>`;
+
+  detailsContent.insertAdjacentHTML('beforeend', html);
+};
+
+// countryCards.forEach(card => {
+//   card.addEventListener('click', function () {
+//     alert('I was clicked!');
+//   });
+// });
 
 // Switch themes
 const switchDarkMode = function () {

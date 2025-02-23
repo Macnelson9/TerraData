@@ -381,12 +381,8 @@ section.search-section.dark-mode,
 
 .back-btn {
   background-color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
-  color: var(--Very-Dark-Blue-Light-Mode-Text);
   border: none;
   border-radius: 5px;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
   padding: 0.5rem 1.5rem;
   cursor: pointer;
   position: relative;
@@ -394,6 +390,14 @@ section.search-section.dark-mode,
   align-self: flex-start;
   white-space: nowrap;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-btn a {
+  text-decoration: none;
+  color: var(--Very-Dark-Blue-Light-Mode-Text);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .fa-arrow-left,
