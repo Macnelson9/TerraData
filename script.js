@@ -1,21 +1,36 @@
 'use strict';
 
 // Selected elements
-const darkModeBtn = document.getElementById('dark-mode-btn');
-const lightModeBtn = document.getElementById('light-mode-btn');
+const darkModeBtn = document.querySelector('#dark-mode-btn');
+const lightModeBtn = document.querySelector('#light-mode-btn');
 const searchBtn = document.querySelector('.search-btn');
 const backBtn = document.querySelector('.back-btn');
 const borderCountriesBtns = document.querySelectorAll('.border-countries-btn');
 const searchBar = document.getElementById('search-bar');
 const filterEl = document.getElementById('region');
 const navListEl = document.querySelector('.nav-list');
-const body = document.querySelector('.body');
+const body = document.querySelector('body');
 const main = document.querySelector('.main');
 const searchSection = document.querySelector('.search-section');
 const bodyContainer = document.querySelector('.body-container');
 const detailsContent = document.querySelector('.details-content');
 const detailsContainer = document.querySelector('.details-container');
 let loaderHtml;
+
+// Format population correctly
+const formatPopulation = function (population) {
+  if (population >= 1000000000) {
+    return `${(population / 1000000000).toFixed(2)} billion`;
+  } else if (population >= 100000000) {
+    return population.toLocaleString();
+  } else if (population >= 10000000) {
+    return population.toLocaleString();
+  } else if (population >= 1000000) {
+    return population.toLocaleString();
+  } else {
+    return population.toLocaleString();
+  }
+};
 
 // Get JSON function
 const getJSON = function (url, errorMsg = 'Something went wrong') {
@@ -66,17 +81,15 @@ const getCountryData = function () {
         // console.log(item);
         const html = `<div class="country-card ${
           item.name.common
-        }" data-href="country.html" data-country="${item.name.common}">
+        }" data-href="country.html" data-country='${JSON.stringify(item)}'>
           <img src="${
             item.flags.png
           }" alt="Country Flag" class="country-flag" />
           <div class="country-info">
             <h2 class="country-name">${item.name.common}</h2>
-            <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${
-              item.population >= 1000000
-                ? `${(item.population / 1000000).toFixed(2)} million`
-                : `${(item.population / 1000).toFixed(2)} thousand`
-            }</span></p>
+            <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${formatPopulation(
+              item.population
+            )}</span></p>
             <p><strong>Region 🌍:</strong> <span>${item.region}</span></p>
             <p><strong>Capital 📍:</strong> <span>${item.capital}</span></p>
             <p><strong>Currency 💰:</strong> <span>${
@@ -90,11 +103,15 @@ const getCountryData = function () {
         const countryCards = document.querySelectorAll('.country-card');
         countryCards.forEach(card => {
           card.addEventListener('click', function () {
-            const countryData = this.dataset.country;
+            const countryData = JSON.parse(this.dataset.country);
             const href = this.dataset.href;
 
             if (href) {
-              // Show loader first
+              // Store country data in sessionStorage
+              sessionStorage.setItem(
+                'selectedCountry',
+                JSON.stringify(countryData)
+              );
               window.location.href = href;
             }
           });
@@ -111,11 +128,9 @@ const displayCountryCard = function (country) {
       <img src="${country.flags.png}" alt="Country Flag" class="country-flag" />
       <div class="country-info">
         <h2 class="country-name">${country.name.common}</h2>
-        <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${
-          country.population >= 1000000
-            ? `${(country.population / 1000000).toFixed(2)} million`
-            : `${(country.population / 1000).toFixed(2)} thousand`
-        }</span></p>
+        <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${formatPopulation(
+          country.population
+        )}</span></p>
         <p><strong>Region 🌍:</strong> <span>${country.region}</span></p>
         <p><strong>Capital 📍:</strong> <span>${country.capital}</span></p>
         <p><strong>Currency 💰:</strong> <span>${
@@ -174,11 +189,9 @@ const displayDetails = function () {
     <div class="country-info2">
       <h2 class="country-name2">${this.name.common}</h2>
       <p><strong>Native Name:</strong> <span>${this.name.official}</span></p>
-      <p><strong>Population:</strong> <span>${
-        this.population >= 1000000
-          ? `${(this.population / 1000000).toFixed(2)} million`
-          : `${(this.population / 1000).toFixed(2)} thousand`
-      }</span></p>
+      <p><strong>Population:</strong> <span>${formatPopulation(
+        this.population
+      )}</span></p>
       <p><strong>Region:</strong> <span>${this.region}</span></p>
       <p><strong>Sub Region:</strong> <span>${
         this.subregion || 'N/A'
@@ -220,7 +233,6 @@ const switchDarkMode = function () {
     navListEl,
     body,
     main,
-    countryCards,
     detailsContainer,
     backBtn,
     searchBar,
@@ -230,12 +242,21 @@ const switchDarkMode = function () {
   ];
 
   elements.forEach(el => {
-    el.classList.add('dark-mode');
+    if (el) el.classList.add('dark-mode');
+  });
+
+  // Update all country cards if they exist
+  const countryCards = document.querySelectorAll('.country-card');
+  countryCards.forEach(card => {
+    card.classList.add('dark-mode');
   });
 
   // Hide dark mode button and show light mode button
-  darkModeBtn.style.display = 'none';
-  lightModeBtn.style.display = 'block';
+  if (darkModeBtn) darkModeBtn.style.display = 'none';
+  if (lightModeBtn) lightModeBtn.style.display = 'block';
+
+  // Store theme preference
+  localStorage.setItem('theme', 'dark');
 };
 
 const switchLightMode = function () {
@@ -243,7 +264,6 @@ const switchLightMode = function () {
     navListEl,
     body,
     main,
-    countryCards,
     detailsContainer,
     backBtn,
     searchBar,
@@ -253,12 +273,31 @@ const switchLightMode = function () {
   ];
 
   elements.forEach(el => {
-    el.classList.remove('dark-mode');
+    if (el) el.classList.remove('dark-mode');
+  });
+
+  // Update all country cards if they exist
+  const countryCards = document.querySelectorAll('.country-card');
+  countryCards.forEach(card => {
+    card.classList.remove('dark-mode');
   });
 
   // Hide light mode button and show dark mode button
-  lightModeBtn.style.display = 'none';
-  darkModeBtn.style.display = 'block';
+  if (lightModeBtn) lightModeBtn.style.display = 'none';
+  if (darkModeBtn) darkModeBtn.style.display = 'block';
+
+  // Store theme preference
+  localStorage.setItem('theme', 'light');
+};
+
+// Add theme initialization
+const initializeTheme = function () {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    switchDarkMode();
+  } else {
+    switchLightMode();
+  }
 };
 
 // Event listeners
@@ -267,8 +306,15 @@ searchBar.addEventListener('keyup', e => {
   if (e.key === 'Enter') handleSearch();
 });
 
-darkModeBtn.addEventListener('click', switchDarkMode);
-lightModeBtn.addEventListener('click', switchLightMode);
+if (darkModeBtn) {
+  darkModeBtn.addEventListener('click', switchDarkMode);
+}
+if (lightModeBtn) {
+  lightModeBtn.addEventListener('click', switchLightMode);
+}
+
+// Initialize theme when page loads
+document.addEventListener('DOMContentLoaded', initializeTheme);
 
 // switchLightMode();
 getCountryData();

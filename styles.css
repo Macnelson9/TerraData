@@ -104,12 +104,12 @@ img {
 
 .nav-list {
   background-color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
-  /* border: 5px solid red; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   padding: 1rem 2rem;
+  width: 100%;
 }
 
 .nav-list li {
@@ -133,6 +133,11 @@ img {
   cursor: pointer;
   position: relative;
   white-space: nowrap;
+}
+
+#dark-mode-btn,
+#light-mode-btn {
+  margin-left: auto;
 }
 
 .fa-moon {
@@ -334,12 +339,16 @@ section.search-section.dark-mode,
 }
 
 /* Country details page dark mode */
+.dark-mode {
+  background: var(--Very-Dark-Blue-Dark-Mode-Background);
+  color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
+}
+
 .dark-mode .details-container {
   background: var(--Very-Dark-Blue-Dark-Mode-Background);
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
-/* Find this rule in the dark mode styles section */
 .dark-mode button.back-btn {
   background-color: var(--Dark-Blue-Dark-Mode-Elements);
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
@@ -420,6 +429,7 @@ section.search-section.dark-mode,
   border-bottom-right-radius: 5px;
   padding: 2rem 0;
   /* background-color: blue; */
+  width: 80%;
 }
 
 h2.country-name2 {
@@ -447,6 +457,7 @@ p.top-level-domain {
   justify-content: space-between;
   gap: 1rem;
   margin: 0.9rem auto;
+  flex-wrap: wrap;
 }
 
 .border-countries-btn {
@@ -578,12 +589,14 @@ p.top-level-domain {
     gap: 8rem;
     margin: 0;
     padding: 2rem;
-    width: 100%;
+    width: 90%;
+    max-width: 1200px;
   }
 
   .details-content img {
     width: 45%;
-    height: auto;
+    height: 400px;
+    object-fit: cover;
   }
 
   .country-info2 {
@@ -592,6 +605,7 @@ p.top-level-domain {
     gap: 10px;
     padding: 2rem 0;
     width: 55%;
+    max-width: 600px;
   }
 
   .country-info2 > p {
@@ -655,12 +669,12 @@ p.top-level-domain {
 main.country-card:hover {
   animation: slideUp 0.7s ease-in;
 }
-
+/* 
 .dark-mode .nav-list li button:hover,
 .dark-mode .back-btn:hover,
 .dark-mode button.border-countries-btn:hover {
   box-shadow: 0 5px 10px rgba(255, 255, 255, 0.4);
-}
+} */
 
 /* Animations */
 @keyframes slideUp {
