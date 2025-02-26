@@ -233,6 +233,10 @@ select#region:focus {
   outline: none;
 }
 
+select#region option:checked {
+  color: var(--Very-Dark-Blue-Light-Mode-Text);
+}
+
 #region option {
   color: var(--Dark-Gray-Light-Mode-Input);
   background-color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
@@ -255,7 +259,7 @@ main {
 .country-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   background-color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
   color: var(--Very-Dark-Blue-Light-Mode-Text);
   border: none;
@@ -268,13 +272,16 @@ main {
 .country-card img {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .country-info {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: 2rem 1.5rem;
-  /* background-color: blue; */
 }
 
 .country-info h2 {
@@ -310,20 +317,23 @@ section.search-section.dark-mode,
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
-/* .dark-mode .nav-list li img {
-  filter: invert(1) brightness(1.5);
-  background-color: var(--Dark-Blue-Dark-Mode-Elements);
-} */
-
 /* Search and filter section dark mode */
 .dark-mode #search-bar,
-.dark-mode .search-btn,
-.dark-mode #region {
+.dark-mode .search-btn {
   background-color: var(--Dark-Blue-Dark-Mode-Elements);
   color: var (--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
 .dark-mode #search-bar::placeholder {
+  color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
+}
+
+.dark-mode #search-bar:focus {
+  color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
+}
+
+.dark-mode #region {
+  background-color: var(--Dark-Blue-Dark-Mode-Elements);
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
@@ -365,7 +375,7 @@ section.search-section.dark-mode,
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
-/* Add dark mode support for loader */
+/* Dark mode support for loader */
 .dark-mode .loader-container {
   background: var(--Very-Dark-Blue-Dark-Mode-Background);
 }
@@ -428,7 +438,6 @@ section.search-section.dark-mode,
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: 2rem 0;
-  /* background-color: blue; */
   width: 80%;
 }
 
@@ -523,7 +532,6 @@ p.top-level-domain {
   }
 
   .country-info {
-    height: calc(100% - 180px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -669,12 +677,6 @@ p.top-level-domain {
 main.country-card:hover {
   animation: slideUp 0.7s ease-in;
 }
-/* 
-.dark-mode .nav-list li button:hover,
-.dark-mode .back-btn:hover,
-.dark-mode button.border-countries-btn:hover {
-  box-shadow: 0 5px 10px rgba(255, 255, 255, 0.4);
-} */
 
 /* Animations */
 @keyframes slideUp {

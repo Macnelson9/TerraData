@@ -57,12 +57,12 @@ cd TerraData
 
 ## Planned Improvements
 
-- [ ] Implement region filtering
-- [ ] Add detailed country pages
+- [✔] Implement region filtering
+- [✔] Add detailed country pages
 - [ ] Include border countries navigation
-- [ ] Add loading states
-- [ ] Implement error handling for API failures
-- [ ] Add local storage for theme preference
+- [✔] Add loading states
+- [✔] Implement error handling for API failures
+- [✔] Add local storage for theme preference
 - [ ] Improve accessibility features
 
 ## What I Learned
