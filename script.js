@@ -194,51 +194,6 @@ const handleSearch = async () => {
   }
 };
 
-// Display country details in the details page
-const displayDetails = function () {
-  const html = `
-    <img src="${this.flags.png}" alt="Country Flag" class="country-flag" />
-    <div class="country-info2">
-      <h2 class="country-name2">${this.name.common}</h2>
-      <p><strong>Native Name:</strong> <span>${this.name.official}</span></p>
-      <p><strong>Population:</strong> <span>${formatPopulation(
-        this.population
-      )}</span></p>
-      <p><strong>Region:</strong> <span>${this.region}</span></p>
-      <p><strong>Sub Region:</strong> <span>${
-        this.subregion || 'N/A'
-      }</span></p>
-      <p><strong>Capital:</strong> <span>${this.capital || 'N/A'}</span></p>
-      <p class="top-level-domain">
-        <strong>Top Level Domain:</strong> <span>${
-          this.tld?.[0] || 'N/A'
-        }</span>
-      </p>
-      <p><strong>Currencies:</strong> <span>${
-        Object.values(this.currencies)[0].name
-      }</span></p>
-      <p><strong>Languages:</strong> <span>${Object.values(this.languages).join(
-        ', '
-      )}</span></p>
-
-      <p id="border-countries--p"><strong>Border Countries:</strong></p>
-      <div class="border-countries">
-        ${
-          this.borders
-            ? this.borders
-                .map(
-                  border =>
-                    `<button class="border-countries-btn">${border}</button>`
-                )
-                .join('')
-            : '<span>No border countries</span>'
-        }
-      </div>
-    </div>`;
-
-  detailsContent.innerHTML = html;
-};
-
 // Filter function
 const filterRegion = function (region) {
   getJSON(
