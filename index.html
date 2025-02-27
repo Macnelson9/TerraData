@@ -42,16 +42,20 @@
       <div class="text">TerraData</div>
     </div> -->
     <div class="body-container">
-      <nav class="navbar">
+      <nav class="navbar" role="navigation">
         <ul class="nav-list">
           <li>
             <img src="./assets/images/TerraDataLogo.png" alt="TerraData Logo" />
           </li>
           <li>
-            <button class="dark-mode-btn" id="dark-mode-btn">
+            <button
+              class="dark-mode-btn"
+              id="dark-mode-btn"
+              aria-label="Switch to dark mode"
+            >
               <i class="fa-regular fa-moon"></i>Dark Mode
             </button>
-            <button id="light-mode-btn">
+            <button id="light-mode-btn" aria-label="Switch to light mode">
               <i class="fa-regular fa-lightbulb"></i>Light Mode
             </button>
           </li>
@@ -68,6 +72,7 @@
             name="search-bar"
             id="search-bar"
             placeholder="Search for a country..."
+            aria-label="Search for a country"
           />
         </div>
 
@@ -83,29 +88,7 @@
         </div>
       </section>
 
-      <main class="main">
-        <!-- <div class="country-card" href="country.html">
-          <img src="" alt="Country Flag" class="country-flag" />
-          <div class="country-info">
-            <h2 class="country-name">Country Name</h2>
-            <p><strong>Population:</strong> <span>123456789</span></p>
-            <p><strong>Region:</strong> <span>Region</span></p>
-            <p><strong>Capital:</strong> <span>Capital</span></p>
-            <p><strong>Currency:</strong> <span>Currency</span></p>
-          </div>
-        </div> -->
-
-        <!-- <div class="country-card" href="country.html">
-          <img src="" alt="Country Flag" class="country-flag" />
-          <div class="country-info">
-            <h2 class="country-name">Country Name</h2>
-            <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>123456789</span></p>
-            <p><strong>Region 🌍:</strong> <span>Region</span></p>
-            <p><strong>Capital 📍:</strong> <span>Capital</span></p>
-            <p><strong>Currency 💰:</strong> <span>Currency</span></p>
-          </div>
-        </div> -->
-      </main>
+      <main class="main" role="main"></main>
     </div>
   </body>
 </html>

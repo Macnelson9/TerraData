@@ -99,7 +99,6 @@ const getCountryData = function () {
 
         main.insertAdjacentHTML('beforeend', html);
 
-        // Add click event listener to all cards
         const countryCards = document.querySelectorAll('.country-card');
         countryCards.forEach(card => {
           card.addEventListener('click', function () {
@@ -124,7 +123,9 @@ const getCountryData = function () {
 // Function to display a country card
 const displayCountryCard = function (country) {
   const html = `
-    <div class="country-card ${country.name.common.toLowerCase()}">
+    <div class="country-card ${country.name.common.toLowerCase()}" data-href="country.html" data-country='${JSON.stringify(
+    country
+  )}'>
       <img src="${country.flags.png}" alt="Country Flag" class="country-flag" />
       <div class="country-info">
         <h2 class="country-name">${country.name.common}</h2>
@@ -140,6 +141,17 @@ const displayCountryCard = function (country) {
     </div>`;
 
   main.insertAdjacentHTML('beforeend', html);
+
+  const newCard = main.lastElementChild;
+  newCard.addEventListener('click', function () {
+    const countryData = JSON.parse(this.dataset.country);
+    const href = this.dataset.href;
+
+    if (href) {
+      sessionStorage.setItem('selectedCountry', JSON.stringify(countryData));
+      window.location.href = href;
+    }
+  });
 };
 
 // Function to clear all country cards
@@ -150,7 +162,7 @@ const clearCountries = () => {
 // Function to handle the search
 const handleSearch = async () => {
   try {
-    // Get search term and clean it
+    // Get search term
     const searchTerm = searchBar.value.trim().toLowerCase();
 
     // Don't search if input is empty
@@ -228,252 +240,73 @@ const displayDetails = function () {
 };
 
 // Filter function
+const filterRegion = function (region) {
+  getJSON(
+    `https://restcountries.com/v3.1/region/${region}`,
+    'Countries not found'
+  ).then(data => {
+    main.innerHTML = '';
+    navListEl.style.display = 'flex';
+    searchSection.style.display = 'flex';
+    data.forEach(item => {
+      const html = `<div class="country-card ${
+        item.name.common
+      }" data-href="country.html" data-country='${JSON.stringify(item)}'>
+          <img src="${
+            item.flags.png
+          }" alt="Country Flag" class="country-flag" />
+          <div class="country-info">
+            <h2 class="country-name">${item.name.common}</h2>
+            <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${formatPopulation(
+              item.population
+            )}</span></p>
+            <p><strong>Region 🌍:</strong> <span>${item.region}</span></p>
+            <p><strong>Capital 📍:</strong> <span>${item.capital}</span></p>
+            <p><strong>Currency 💰:</strong> <span>${
+              Object.values(item.currencies)[0].name
+            }</span></p>
+        </div>`;
+
+      main.insertAdjacentHTML('beforeend', html);
+
+      const countryCards = document.querySelectorAll('.country-card');
+      countryCards.forEach(card => {
+        card.addEventListener('click', function () {
+          const countryData = JSON.parse(this.dataset.country);
+          const href = this.dataset.href;
+
+          if (href) {
+            sessionStorage.setItem(
+              'selectedCountry',
+              JSON.stringify(countryData)
+            );
+            window.location.href = href;
+          }
+        });
+      });
+    });
+  });
+};
+
 const filterFunction = function () {
   const selectedValue = this.value;
 
   if (selectedValue === 'africa') {
-    getJSON(
-      `https://restcountries.com/v3.1/region/${selectedValue}`,
-      'Countries not found'
-    ).then(data => {
-      main.innerHTML = '';
-      navListEl.style.display = 'flex';
-      searchSection.style.display = 'flex';
-      data.forEach(item => {
-        // console.log(item);
-        const html = `<div class="country-card ${
-          item.name.common
-        }" data-href="country.html" data-country='${JSON.stringify(item)}'>
-            <img src="${
-              item.flags.png
-            }" alt="Country Flag" class="country-flag" />
-            <div class="country-info">
-              <h2 class="country-name">${item.name.common}</h2>
-              <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${formatPopulation(
-                item.population
-              )}</span></p>
-              <p><strong>Region 🌍:</strong> <span>${item.region}</span></p>
-              <p><strong>Capital 📍:</strong> <span>${item.capital}</span></p>
-              <p><strong>Currency 💰:</strong> <span>${
-                Object.values(item.currencies)[0].name
-              }</span></p>
-          </div>`;
-
-        main.insertAdjacentHTML('beforeend', html);
-
-        const countryCards = document.querySelectorAll('.country-card');
-        countryCards.forEach(card => {
-          card.addEventListener('click', function () {
-            const countryData = JSON.parse(this.dataset.country);
-            const href = this.dataset.href;
-
-            if (href) {
-              sessionStorage.setItem(
-                'selectedCountry',
-                JSON.stringify(countryData)
-              );
-              window.location.href = href;
-            }
-          });
-        });
-      });
-    });
+    filterRegion(selectedValue);
   } else if (selectedValue === 'europe') {
-    getJSON(
-      `https://restcountries.com/v3.1/region/${selectedValue}`,
-      'Countries not found'
-    ).then(data => {
-      main.innerHTML = '';
-      navListEl.style.display = 'flex';
-      searchSection.style.display = 'flex';
-      data.forEach(item => {
-        // console.log(item);
-        const html = `<div class="country-card ${
-          item.name.common
-        }" data-href="country.html" data-country='${JSON.stringify(item)}'>
-              <img src="${
-                item.flags.png
-              }" alt="Country Flag" class="country-flag" />
-              <div class="country-info">
-                <h2 class="country-name">${item.name.common}</h2>
-                <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${formatPopulation(
-                  item.population
-                )}</span></p>
-                <p><strong>Region 🌍:</strong> <span>${item.region}</span></p>
-                <p><strong>Capital 📍:</strong> <span>${item.capital}</span></p>
-                <p><strong>Currency 💰:</strong> <span>${
-                  Object.values(item.currencies)[0].name
-                }</span></p>
-            </div>`;
-
-        main.insertAdjacentHTML('beforeend', html);
-
-        const countryCards = document.querySelectorAll('.country-card');
-        countryCards.forEach(card => {
-          card.addEventListener('click', function () {
-            const countryData = JSON.parse(this.dataset.country);
-            const href = this.dataset.href;
-
-            if (href) {
-              sessionStorage.setItem(
-                'selectedCountry',
-                JSON.stringify(countryData)
-              );
-              window.location.href = href;
-            }
-          });
-        });
-      });
-    });
+    filterRegion(selectedValue);
   } else if (selectedValue === 'americas') {
-    getJSON(
-      `https://restcountries.com/v3.1/region/${selectedValue}`,
-      'Countries not found'
-    ).then(data => {
-      main.innerHTML = '';
-      navListEl.style.display = 'flex';
-      searchSection.style.display = 'flex';
-      data.forEach(item => {
-        // console.log(item);
-        const html = `<div class="country-card ${
-          item.name.common
-        }" data-href="country.html" data-country='${JSON.stringify(item)}'>
-            <img src="${
-              item.flags.png
-            }" alt="Country Flag" class="country-flag" />
-            <div class="country-info">
-              <h2 class="country-name">${item.name.common}</h2>
-              <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${formatPopulation(
-                item.population
-              )}</span></p>
-              <p><strong>Region 🌍:</strong> <span>${item.region}</span></p>
-              <p><strong>Capital 📍:</strong> <span>${item.capital}</span></p>
-              <p><strong>Currency 💰:</strong> <span>${
-                Object.values(item.currencies)[0].name
-              }</span></p>
-          </div>`;
-
-        main.insertAdjacentHTML('beforeend', html);
-
-        const countryCards = document.querySelectorAll('.country-card');
-        countryCards.forEach(card => {
-          card.addEventListener('click', function () {
-            const countryData = JSON.parse(this.dataset.country);
-            const href = this.dataset.href;
-
-            if (href) {
-              sessionStorage.setItem(
-                'selectedCountry',
-                JSON.stringify(countryData)
-              );
-              window.location.href = href;
-            }
-          });
-        });
-      });
-    });
+    filterRegion(selectedValue);
   } else if (selectedValue === 'asia') {
-    getJSON(
-      `https://restcountries.com/v3.1/region/${selectedValue}`,
-      'Countries not found'
-    ).then(data => {
-      main.innerHTML = '';
-      navListEl.style.display = 'flex';
-      searchSection.style.display = 'flex';
-      data.forEach(item => {
-        // console.log(item);
-        const html = `<div class="country-card ${
-          item.name.common
-        }" data-href="country.html" data-country='${JSON.stringify(item)}'>
-            <img src="${
-              item.flags.png
-            }" alt="Country Flag" class="country-flag" />
-            <div class="country-info">
-              <h2 class="country-name">${item.name.common}</h2>
-              <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${formatPopulation(
-                item.population
-              )}</span></p>
-              <p><strong>Region 🌍:</strong> <span>${item.region}</span></p>
-              <p><strong>Capital 📍:</strong> <span>${item.capital}</span></p>
-              <p><strong>Currency 💰:</strong> <span>${
-                Object.values(item.currencies)[0].name
-              }</span></p>
-          </div>`;
-
-        main.insertAdjacentHTML('beforeend', html);
-
-        const countryCards = document.querySelectorAll('.country-card');
-        countryCards.forEach(card => {
-          card.addEventListener('click', function () {
-            const countryData = JSON.parse(this.dataset.country);
-            const href = this.dataset.href;
-
-            if (href) {
-              sessionStorage.setItem(
-                'selectedCountry',
-                JSON.stringify(countryData)
-              );
-              window.location.href = href;
-            }
-          });
-        });
-      });
-    });
+    filterRegion(selectedValue);
   } else if (selectedValue === 'oceania') {
-    getJSON(
-      `https://restcountries.com/v3.1/region/${selectedValue}`,
-      'Countries not found'
-    ).then(data => {
-      main.innerHTML = '';
-      navListEl.style.display = 'flex';
-      searchSection.style.display = 'flex';
-      data.forEach(item => {
-        // console.log(item);
-        const html = `<div class="country-card ${
-          item.name.common
-        }" data-href="country.html" data-country='${JSON.stringify(item)}'>
-            <img src="${
-              item.flags.png
-            }" alt="Country Flag" class="country-flag" />
-            <div class="country-info">
-              <h2 class="country-name">${item.name.common}</h2>
-              <p><strong>Population 👨‍👩‍👧‍👦:</strong> <span>${formatPopulation(
-                item.population
-              )}</span></p>
-              <p><strong>Region 🌍:</strong> <span>${item.region}</span></p>
-              <p><strong>Capital 📍:</strong> <span>${item.capital}</span></p>
-              <p><strong>Currency 💰:</strong> <span>${
-                Object.values(item.currencies)[0].name
-              }</span></p>
-          </div>`;
-
-        main.insertAdjacentHTML('beforeend', html);
-
-        const countryCards = document.querySelectorAll('.country-card');
-        countryCards.forEach(card => {
-          card.addEventListener('click', function () {
-            const countryData = JSON.parse(this.dataset.country);
-            const href = this.dataset.href;
-
-            if (href) {
-              sessionStorage.setItem(
-                'selectedCountry',
-                JSON.stringify(countryData)
-              );
-              window.location.href = href;
-            }
-          });
-        });
-      });
-    });
+    filterRegion(selectedValue);
   } else if (selectedValue === 'region') {
     getCountryData();
   }
 };
-filterEl.addEventListener('change', filterFunction);
 
-// Switch themes
-const switchDarkMode = function () {
+const switchTheme = function (theme) {
   const elements = [
     navListEl,
     body,
@@ -486,54 +319,24 @@ const switchDarkMode = function () {
     bodyContainer,
   ];
 
-  elements.forEach(el => {
-    if (el) el.classList.add('dark-mode');
-  });
-
-  // Update all country cards if they exist
-  const countryCards = document.querySelectorAll('.country-card');
-  countryCards.forEach(card => {
-    card.classList.add('dark-mode');
-  });
-
-  // Hide dark mode button and show light mode button
-  if (darkModeBtn) darkModeBtn.style.display = 'none';
-  if (lightModeBtn) lightModeBtn.style.display = 'block';
-
-  // Store theme preference
-  localStorage.setItem('theme', 'dark');
-};
-
-const switchLightMode = function () {
-  const elements = [
-    navListEl,
-    body,
-    main,
-    detailsContainer,
-    backBtn,
-    searchBar,
-    searchBtn,
-    searchSection,
-    bodyContainer,
-  ];
+  const isDarkMode = theme === 'dark';
 
   elements.forEach(el => {
-    if (el) el.classList.remove('dark-mode');
+    if (el) el.classList[isDarkMode ? 'add' : 'remove']('dark-mode');
   });
 
-  // Update all country cards if they exist
-  const countryCards = document.querySelectorAll('.country-card');
-  countryCards.forEach(card => {
-    card.classList.remove('dark-mode');
+  document.querySelectorAll('.country-card').forEach(card => {
+    card.classList[isDarkMode ? 'add' : 'remove']('dark-mode');
   });
 
-  // Hide light mode button and show dark mode button
-  if (lightModeBtn) lightModeBtn.style.display = 'none';
-  if (darkModeBtn) darkModeBtn.style.display = 'block';
+  if (darkModeBtn) darkModeBtn.style.display = isDarkMode ? 'none' : 'block';
+  if (lightModeBtn) lightModeBtn.style.display = isDarkMode ? 'block' : 'none';
 
-  // Store theme preference
-  localStorage.setItem('theme', 'light');
+  localStorage.setItem('theme', theme);
 };
+
+const switchDarkMode = () => switchTheme('dark');
+const switchLightMode = () => switchTheme('light');
 
 // Add theme initialization
 const initializeTheme = function () {
@@ -546,10 +349,14 @@ const initializeTheme = function () {
 };
 
 // Event listeners
-searchBtn.addEventListener('click', handleSearch);
-searchBar.addEventListener('keyup', e => {
-  if (e.key === 'Enter') handleSearch();
-});
+if (searchBtn) {
+  searchBtn.addEventListener('click', handleSearch);
+}
+if (searchBar) {
+  searchBar.addEventListener('keyup', e => {
+    if (e.key === 'Enter') handleSearch();
+  });
+}
 
 if (darkModeBtn) {
   darkModeBtn.addEventListener('click', switchDarkMode);
@@ -558,8 +365,10 @@ if (lightModeBtn) {
   lightModeBtn.addEventListener('click', switchLightMode);
 }
 
-// Initialize theme when page loads
-document.addEventListener('DOMContentLoaded', initializeTheme);
+filterEl.addEventListener('change', filterFunction);
 
-// switchLightMode();
-getCountryData();
+// Initialize theme when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  initializeTheme();
+  if (main) getCountryData(); // Only call if on main page
+});

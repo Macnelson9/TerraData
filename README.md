@@ -17,17 +17,27 @@ A dynamic web application that allows users to explore information about differe
 - **Search Functionality**:
 
   - Real-time country search by name
-  - Filter countries by region (Coming soon)
+  - Filter countries by region
 
 - **Theme Switching**:
 
   - Toggle between light and dark modes
-  - Persistent theme selection
+  - Persistent theme selection using local storage
   - Smooth transitions between themes
 
 - **Responsive Design**:
+
   - Mobile-first approach
   - Adapts seamlessly to different screen sizes
+
+- **Detailed Country Pages**:
+
+  - View detailed information about a selected country
+  - Navigate to border countries
+
+- **Loading States and Error Handling**:
+  - Display loading indicators while fetching data
+  - Handle API failures gracefully with error messages
 
 ## Technologies Used
 
@@ -59,19 +69,20 @@ cd TerraData
 
 - [✔] Implement region filtering
 - [✔] Add detailed country pages
-- [ ] Include border countries navigation
+- [✔] Include border countries navigation
 - [✔] Add loading states
 - [✔] Implement error handling for API failures
 - [✔] Add local storage for theme preference
-- [ ] Improve accessibility features
+- [✔] Improve accessibility features
 
 ## What I Learned
 
-- Working with REST APIs and handling JSON data
-- Implementing dark/light theme switching
-- DOM manipulation and event handling
-- Error handling in fetch requests
-- Responsive design principles
+- **Working with REST APIs**: Fetching and handling JSON data from the REST Countries API.
+- **Theme Switching**: Implementing dark/light theme switching with smooth transitions and persistent theme selection using local storage.
+- **DOM Manipulation**: Efficiently manipulating the DOM to display country information and handle user interactions.
+- **Event Handling**: Adding event listeners for search functionality, theme switching, and navigation.
+- **Error Handling**: Gracefully handling errors in fetch requests and displaying appropriate messages to the user.
+- **Responsive Design**: Applying responsive design principles to ensure the application works well on various screen sizes.
 
 ## Useful Resources
 

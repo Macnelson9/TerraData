@@ -359,7 +359,8 @@ section.search-section.dark-mode,
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
 
-.dark-mode button.back-btn {
+.dark-mode button.back-btn,
+.dark-mode .back-btn a {
   background-color: var(--Dark-Blue-Dark-Mode-Elements);
   color: var(--White-Dark-Mode-Text-and-Light-Mode-Elements);
 }
@@ -463,7 +464,7 @@ p.top-level-domain {
 
 .border-countries {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
   margin: 0.9rem auto;
   flex-wrap: wrap;
